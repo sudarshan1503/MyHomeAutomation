@@ -8,6 +8,7 @@ import subprocess
 # Import Python files
 ####################################################
 
+import ssh_script
 import syslog_script
 
 ####################################################
@@ -23,12 +24,15 @@ def menu():
 	print ("      WELCOME TO MY HOME AUTOMATION")
 	print ("*****************************************")
 	print ()
-	print ("01. Syslog")
+	print ("01. SSH")
+	print ("02. Syslog")
 	print ()
 
 	MenuListOption = int(input("Select an option: "))
 	
 	if MenuListOption == 1:
+		ssh_script.menu()
+	elif MenuListOption == 2:
 		syslog_script.menu()
 	else:
 		print ("Invalid Choice!!!!!")
