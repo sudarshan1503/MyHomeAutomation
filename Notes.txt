@@ -1,6 +1,0 @@
-My Home Automation Notes will be stored here.
-
-This will include below homes
-- Ghaziabad
-- Nasik
-- Ranchi
