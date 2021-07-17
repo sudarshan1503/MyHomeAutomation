@@ -23,19 +23,17 @@ def FindSyslog():
 
 	DateTimeObj = datetime.datetime.now()
 	CurrentTime = str(DateTimeObj.strftime("%y%m%d_%H%M%S_"))
-	DeviceSyslogFile = "/home/sudaak/sud/Project/MyHomeAutomation/Python_Scripts_venv/logs/" + CurrentTime + FindSyslogForDevice + ".txt"
+	DeviceSyslogFile = "/home/sudaak/Desktop/Scripting/Python/VENV/MyHomeAutomation/logs/" + CurrentTime + FindSyslogForDevice + ".txt"
 	
 	with open('/var/log/syslog','rb') as f:
     		FileLinesList = f.readlines()
 	
-	#f = open("/home/sudaak/sud/Project/MyHomeAutomation/Python_Scripts_venv/logs/Test.txt",'w')
 	f = open(DeviceSyslogFile,'w')
 
 	for i in range (0,len(FileLinesList)):
 		try:
 			if FindSyslogForDevice in FileLinesList[i].decode():
 				f.write(FileLinesList[i].decode())
-				#print(FileLinesList[i].decode())
 		except:
 			continue
 			
@@ -83,16 +81,30 @@ def menu():
 	print ("        WELCOME TO SYSLOG MODULE")
 	print ("*****************************************")
 	print ()
-	print ("01. Find Syslogs for specfic Device")
-	print ("02. Troubleshoot Syslog Service")
+	print ("01. Verify Server is listening on UDP Port 514")
+	print ("02. Verify Syslog Service is Running")
+	print ("03. Find Syslogs for specfic Device")
+	print ("04. Exit the Script")
 	print ()
 
 	MenuListOption = int(input("Select an option: "))
 	
 	if MenuListOption == 1:
-		FindSyslog()
+		subprocess.run(["netstat","-unlp4"])
+		input("\nPress Enter to continue...")
+		menu()
 	elif MenuListOption == 2:
-		TshootSyslogService()
+		subprocess.run(["systemctl","status","rsyslog"])
+		input("\nPress Enter to continue...")
+		menu()
+	elif MenuListOption == 3:
+		FindSyslog()
+		print ("Log File is Created")
+		input("\nPress Enter to continue...")
+		menu()
+	elif MenuListOption == 4:
+		subprocess.run("clear")
+		exit()
 		
 			
 ####################################################

@@ -3,7 +3,6 @@
 ####################################################
 
 import subprocess
-import datetime
 
 ####################################################
 # Import Python files
@@ -26,14 +25,24 @@ def menu():
 	print ()
 	print ("01. Verify Server is listening on TCP Port 22")
 	print ("02. Verify SSH Service is Running")
+	print ("03. Exit the Script")
 	print ()
 
 	MenuListOption = int(input("Select an option: "))
 	
+	print()
+	
 	if MenuListOption == 1:
 		subprocess.run(["netstat","-tnlp4"])
+		input("\nPress Enter to continue...")
+		menu()
 	elif MenuListOption == 2:
 		subprocess.run(["systemctl","status","ssh"])
+		input("\nPress Enter to continue...")
+		menu()
+	elif MenuListOption == 3:
+		subprocess.run("clear")
+		exit()
 		
 			
 ####################################################
